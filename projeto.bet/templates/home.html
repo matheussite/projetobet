@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <ul class="messages">
+                <li>{{ message }}</li>
+            </ul>
+        {% endfor %}
+    {% endif %}
+
+    <h2>Jogos Disponíveis</h2>
+
+    {% for jogo in lista_jogos %}
+        <a href="{% url 'fazer_aposta' jogo.id %}" class="game-card-link">
+            <div class="game-card">
+                <h4>{{ jogo.time_a }} vs {{ jogo.time_b }}</h4>
+                <p class="game-card-date">Data: {{ jogo.data_jogo|date:"d/m/Y H:i" }}</p>
+
+                <div class="game-card-odds-grid">
+
+                    <div class="odd-box">
+                        <span class="odd-label">(1) {{ jogo.time_a }}</span>
+                        <strong class="odd-value">{{ jogo.odd_time_a }}</strong>
+                    </div>
+
+                    <div class="odd-box">
+                        <span class="odd-label">(X) Empate</span>
+                        <strong class="odd-value">{{ jogo.odd_empate }}</strong>
+                    </div>
+
+                    <div class="odd-box">
+                        <span class="odd-label">(2) {{ jogo.time_b }}</span>
+                        <strong class="odd-value">{{ jogo.odd_time_b }}</strong>
+                    </div>
+
+                </div>
+                </div>
+        </a>
+    {% empty %}
+        <p>Nenhum jogo aberto para apostas no momento. Volte mais tarde!</p>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,323 @@
+/* Em static/css/style.css (ARQUIVO FINAL COMPLETO) */
+
+:root {
+    --cor-fundo: #121212;  /* Um cinza bem escuro, quase preto */
+    --cor-texto: #E0E0E0;  /* Um branco suave */
+    --cor-destaque: #00FFFF; /* Ciano Neon (para títulos e links) */
+    --cor-card: #1E1E1E;   /* Fundo dos "cards" de jogo */
+    --cor-borda: #333;
+}
+
+/* ----- GERAL ----- */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto; /* Centraliza */
+}
+
+/* ----- LINKS E TÍTULOS ----- */
+a {
+    color: var(--cor-destaque);
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+h1, h2, h3, h4 {
+    color: var(--cor-destaque);
+}
+
+/* ----- BARRA DE NAVEGAÇÃO (NAV) ----- */
+.navbar {
+    background-color: var(--cor-card);
+    border-bottom: 1px solid var(--cor-borda);
+    padding: 15px 0;
+}
+.navbar .container {
+    display: flex;
+    justify-content: space-between; /* Logo de um lado, usuário do outro */
+    align-items: center;
+    margin-top: 0;
+}
+.nav-logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.nav-user span {
+    margin-right: 15px;
+}
+.nav-user a {
+    margin-left: 15px;
+}
+
+/* ----- FORMULÁRIOS (Login, Cadastro, Aposta) ----- */
+form {
+    background-color: var(--cor-card);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--cor-borda);
+}
+form p {
+    margin-bottom: 15px;
+}
+/* Estiliza os campos de texto e senha (COM BORDA ARREDONDADA) */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+    width: 95%;
+    padding: 10px;
+    background-color: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto);
+    border-radius: 8px; /* <-- MUDANÇA APLICADA */
+}
+
+/* ----- BOTÕES (COM BORDA ARREDONDADA) ----- */
+button,
+.btn {
+    background-color: var(--cor-destaque);
+    color: var(--cor-fundo); /* Texto preto/escuro para contrastar */
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px; /* <-- MUDANÇA APLICADA */
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+button:hover,
+.btn:hover {
+    opacity: 0.8;
+}
+
+/* ----- MENSAGENS (Sucesso, Erro) ----- */
+.messages {
+    list-style-type: none;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    background-color: #004d00; /* Verde escuro */
+    color: #ccffcc; /* Verde claro */
+    border: 1px solid #008000;
+}
+
+/* ----- ESTILOS ESPECÍFICOS ----- */
+
+/* Card de Jogo (na home) */
+.game-card {
+    background-color: var(--cor-card);
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+.game-card h4 {
+    margin-top: 0;
+}
+.game-card-date {
+    font-size: 0.9em;
+    color: #aaa; /* Deixa a data mais sutil */
+}
+
+/* A nova Grade de Odds */
+.game-card-odds-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Três colunas iguais */
+    gap: 10px; /* Espaço entre os botões */
+    margin-top: 15px; /* Espaço da data */
+}
+
+/* O Botão de Odd Individual */
+.odd-box {
+    background-color: var(--cor-fundo); /* Fundo escuro */
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Label em cima, Odd embaixo */
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Efeito de Hover: Quando passar o mouse no card, muda os botões */
+.game-card-link:hover .odd-box {
+    background-color: #2a2a2a; /* Fica um pouco mais claro */
+    border-color: var(--cor-destaque); /* Borda Ciano */
+}
+
+/* O texto (ex: "Empate") */
+.odd-label {
+    font-size: 0.9em;
+    color: var(--cor-texto);
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* O valor da Odd (ex: "4.23") */
+.odd-value {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--cor-destaque); /* A Odd fica Ciano */
+}
+
+/* Card de Aposta (em minhas_apostas) */
+.aposta-card {
+    background-color: var(--cor-card);
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+.status-GANHA { color: #00FF00; } /* Verde neon */
+.status-PERDIDA { color: #FF0000; } /* Vermelho neon */
+.status-PENDENTE { color: #FFA500; } /* Laranja */
+.status-CASHED_OUT { color: #999999; } /* Cinza */
+
+/* ----- Botão de Cashout ----- */
+.btn-cashout {
+    background-color: #ff8c00; /* Laranja escuro */
+    color: var(--cor-fundo);
+    padding: 8px 12px;
+    font-size: 0.9em;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+.btn-cashout:hover {
+    background-color: #ffA500; /* Laranja mais claro */
+}
+
+
+/* ----- Formulários (Radio Custom) ----- */
+form ul {
+    display: none; /* Esconde a lista <ul> feia do Django */
+}
+
+.radio-group {
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    overflow: hidden; 
+    margin-top: 10px;
+}
+.radio-option input[type="radio"] {
+    display: none; 
+}
+.radio-option label {
+    display: block; 
+    padding: 15px 20px;
+    background-color: var(--cor-card);
+    color: var(--cor-texto);
+    cursor: pointer;
+    border-bottom: 1px solid var(--cor-borda); 
+    transition: background-color 0.2s ease;
+}
+.radio-option:last-child label {
+    border-bottom: none;
+}
+.radio-option label:hover {
+    background-color: #333; 
+}
+.radio-option input[type="radio"]:checked + label {
+    background-color: var(--cor-destaque); 
+    color: var(--cor-fundo); 
+    font-weight: bold;
+}
+
+/* ============================================= */
+/* ----- "CAIXINHAS" DE VALOR (O QUE FALTOU) ----- */
+/* ============================================= */
+.preset-values {
+    display: flex;
+    flex-wrap: wrap; /* Faz as caixinhas quebrarem a linha em telas pequenas */
+    gap: 8px; /* Espaço entre as caixinhas */
+    margin-top: -5px; /* Puxa para perto do campo de valor */
+    margin-bottom: 20px;
+}
+
+.preset-btn {
+    flex-grow: 1; /* Faz ocuparem o espaço igualmente */
+    
+    /* Estilo do botão (diferente do botão principal) */
+    background-color: var(--cor-card);
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-destaque); /* Texto Ciano */
+    
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-transform: none; /* Não queremos UPPECASE */
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.preset-btn:hover {
+    background-color: #333; /* Fica mais claro no hover */
+    opacity: 1; /* Reseta a opacidade do 'button:hover' geral */
+}
+/* ============================================= */
+/* ----- FIM DO BLOCO NOVO ----- */
+/* ============================================= */
+
+
+/* ============================================= */
+/* ----- CSS RESPONSIVO (MOBILE) ----- */
+/* ============================================= */
+@media (max-width: 768px) {
+
+    .container {
+        width: 95%; /* Ocupa um pouco mais da tela no celular */
+    }
+
+    /* ----- NAV RESPONSIVA ----- */
+    .navbar .container {
+        flex-direction: column; /* Coloca a logo EM CIMA do menu-usuário */
+        align-items: flex-start; /* Alinha tudo à esquerda */
+    }
+
+    .nav-user {
+        margin-top: 15px; /* Espaço entre a logo e o menu */
+        width: 100%;
+        display: flex;
+        flex-direction: column; /* Empilha os links de usuário (Saldo, Apostas, Sair) */
+    }
+
+    .nav-user span {
+        margin-right: 0;
+        margin-bottom: 10px; /* Espaço entre Saldo e Minhas Apostas */
+    }
+
+    .nav-user a {
+        margin-left: 0;
+        margin-bottom: 10px; /* Espaço entre os links */
+    }
+
+    /* ----- ODDS RESPONSIVAS (Home) ----- */
+    .game-card-odds-grid {
+        /* No celular, os 3 botões viram uma coluna */
+        grid-template-columns: 1fr; 
+    }
+
+    /* O nome do time no celular pode ser maior */
+    .odd-label {
+        white-space: normal;
+    }
+
+    /* ----- FORMULÁRIOS ----- */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"] {
+        width: 90%; /* Ajusta o padding dos inputs para não colar na borda */
+    }
+}

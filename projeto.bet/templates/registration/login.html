@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Login</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <p>
+            <label for="{{ form.username.id_for_label }}">Usuário:</label>
+            {{ form.username }}
+            {% for error in form.username.errors %}
+                <span style="color: red; font-size: 0.9em;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            <label for="{{ form.password.id_for_label }}">Senha:</label>
+            {{ form.password }}
+            {% for error in form.password.errors %}
+                <span style="color: red; font-size: 0.9em;">{{ error }}</span>
+            {% endfor %}
+        </p>
+
+        {% if form.non_field_errors %}
+            <div style="color: red; margin-bottom: 15px;">
+                {% for error in form.non_field_errors %}
+                    <p><strong>{{ error }}</strong></p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <button type="submit">Entrar</button>
+    </form>
+
+    <p style="margin-top: 15px;">
+        <a href="{% url 'cadastro' %}">Não tem uma conta? Cadastre-se</a>
+    </p>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Meu Histórico de Apostas</h2>
+
+    {% for aposta in minhas_apostas %}
+        <div class="aposta-card">
+            
+            <p>
+                <strong>Status: 
+                    <span class="status-{{ aposta.status }}">
+                        {{ aposta.get_status_display }}
+                    </span>
+                </strong>
+            </p>
+            
+            <p><strong>Jogo:</strong> {{ aposta.jogo }}</p>
+            <p><strong>Minha Escolha:</strong> {{ aposta.get_escolha_display }}</p>
+            <p><strong>Valor Apostado:</strong> R$ {{ aposta.valor_apostado|floatformat:2 }}</p>
+
+            
+            {% if aposta.status == 'PENDENTE' and aposta.jogo.status == 'ABERTO' %}
+            
+                <div class="cashout-box">
+                    
+                    {% widthratio aposta.valor_apostado 100 80 as valor_cashout %}
+                    
+                    <form method="POST" action="{% url 'cashout_aposta' aposta.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-cashout">
+                            Fazer Cashout (R$ {{ valor_cashout|floatformat:2 }})
+                        </button>
+                    </form>
+                </div>
+            
+            {% else %}
+            
+                {% if aposta.status == 'PENDENTE' %}
+                    <div style="background: #333; color: white; padding: 5px; margin-top: 10px; font-size: 0.8em;">
+                        <strong>DEBUG (Cashout Indisponível):</strong><br>
+                        Status Aposta: [{{ aposta.status }}] (Esperado: PENDENTE)<br>
+                        Status Jogo: [{{ aposta.jogo.status }}] (Esperado: ABERTO)
+                    </div>
+                {% endif %}
+                
+            {% endif %}
+            </div> {% empty %}
+        <p>Você ainda não fez nenhuma aposta.</p>
+        
+    {% endfor %} {% endblock %} ```
+
+**Por favor, tente este código.** Salve o arquivo e force a atualização (`Ctrl+F5`) da página "Minhas Apostas". A página de erro TEM que desaparecer agora.

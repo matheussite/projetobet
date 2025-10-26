@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Fazer Aposta</h2>
+    <h4>{{ jogo.time_a }} vs {{ jogo.time_b }}</h4>
+    <p>Data: {{ jogo.data_jogo|date:"d/m/Y H:i" }}</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+            <div style="color: red; margin-bottom: 15px;">
+                {% for error in form.non_field_errors %}
+                    <p><strong>{{ error }}</strong></p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <p>
+            <label for="{{ form.valor_apostado.id_for_label }}">Valor apostado:</label>
+            {{ form.valor_apostado }}
+            {% for error in form.valor_apostado.errors %}
+                <span style="color: red; font-size: 0.9em;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        
+        <div class="preset-values">
+            <button type="button" class="preset-btn" data-value="10">+ R$ 10</button>
+            <button type="button" class="preset-btn" data-value="20">+ R$ 20</button>
+            <button type="button" class="preset-btn" data-value="50">+ R$ 50</button>
+            <button type="button" class="preset-btn" data-value="100">+ R$ 100</button>
+            <button type="button" class="preset-btn" data-value="200">+ R$ 200</button>
+        </div>
+        <p>
+            <label>Escolha:</label>
+            <div class="radio-group">
+                {% for radio in form.escolha %}
+                <div class="radio-option">
+                    {{ radio.tag }} 
+                    <label for="{{ radio.id_for_label }}">
+                        {{ radio.choice_label }}
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+            {% for error in form.escolha.errors %}
+                <span style="color: red; font-size: 0.9em;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        
+        <button type="submit">Apostar</button>
+    </form>
+
+
+    <script>
+        // Espera o documento carregar
+        document.addEventListener('DOMContentLoaded', (event) => {
+            
+            // 1. Pega o campo de input do valor
+            // Usamos o 'id_for_label' que o Django cria
+            const valorInput = document.getElementById('{{ form.valor_apostado.id_for_label }}');
+
+            // 2. Pega todos os nossos botões de "caixinha"
+            const presetButtons = document.querySelectorAll('.preset-btn');
+
+            // 3. Adiciona um 'click' em cada botão
+            presetButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Pega o valor do atributo 'data-value' (ex: "50")
+                    const valueToAdd = parseFloat(button.dataset.value);
+                    
+                    // Pega o valor que JÁ ESTÁ no campo (ou 0 se estiver vazio)
+                    const currentValue = parseFloat(valorInput.value) || 0;
+                    
+                    // Soma o valor atual + o valor do botão
+                    valorInput.value = currentValue + valueToAdd;
+                });
+            });
+        });
+    </script>
+    {% endblock %}

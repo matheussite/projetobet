@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Cadastre-se</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <p>
+            <label for="{{ form.username.id_for_label }}">Usuário:</label>
+            {{ form.username }}
+            {% for error in form.username.errors %}
+                <span style="color: red; font-size: 0.9em;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            <label for="{{ form.email.id_for_label }}">Email:</label>
+            {{ form.email }}
+            {% for error in form.email.errors %}
+                <span style="color: red; font-size: 0.9em;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            <label for="{{ form.password1.id_for_label }}">Senha:</label>
+            {{ form.password1 }}
+            {% for error in form.password1.errors %}
+                <span style="color: red; font-size: 0.9em;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            <label for="{{ form.password2.id_for_label }}">Confirmação de senha:</label>
+            {{ form.password2 }}
+            {% for error in form.password2.errors %}
+                <span style="color: red; font-size: 0.9em;">{{ error }}</span>
+            {% endfor %}
+        </p>
+
+        {% if form.non_field_errors %}
+            <div style="color: red; margin-bottom: 15px;">
+                {% for error in form.non_field_errors %}
+                    <p><strong>{{ error }}</strong></p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <button type="submit">Cadastrar</button>
+    </form>
+{% endblock %}

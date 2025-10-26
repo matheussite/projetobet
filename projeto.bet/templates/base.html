@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Site Bet</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a class="nav-logo" href="{% url 'home' %}">PROJETO.BET</a>
+
+            <div class="nav-user">
+                {% if user.is_authenticated %}
+                    <span>Saldo: R$ {{ user.saldo|floatformat:2 }}</span>
+                    <a href="{% url 'minhas_apostas' %}">Minhas Apostas</a>
+                    <a href="{% url 'logout' %}">Sair</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'cadastro' %}">Cadastre-se</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>
